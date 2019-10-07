@@ -5,13 +5,13 @@
       <h3>登录</h3>
 
       <!-- model：表单的数据对象 -->
-      <el-form ref="form" :model="form" label-width="80px">
-        <el-form-item label="账号">
-          <el-input v-model="form.name"></el-input>
+      <el-form ref="form" :rules="rules" :model="form" label-width="80px">
+        <el-form-item label="账号" prop="username">
+          <el-input v-model="form.username"></el-input>
         </el-form-item>
 
-        <el-form-item label="密码">
-          <el-input type="password" v-model="form.pass"></el-input>
+        <el-form-item label="密码" prop="password">
+          <el-input type="password" v-model="form.password"></el-input>
         </el-form-item>
 
         <el-form-item>
@@ -31,13 +31,28 @@ export default {
       form: {
         username: "",
         password: ""
+      },
+
+      // rules是表单验证规则
+      rules: {
+        username: [
+          { required: true, message: "请输入用户名", trigger: "blur" }
+        ],
+        password: [{ required: true, message: "请输入密码", trigger: "blur" }]
       }
     };
   },
+
   methods: {
     // 提交表单
     submitForm() {
-      console.log(this.form);
+      // validate方法是element的表单才有的
+      this.$refs.form.validate(valid => {
+        // valid为真的时候提交表单
+        if (valid) {
+          // 请求登录接口
+        }
+      });
     }
   }
 };
@@ -51,13 +66,13 @@ export default {
   bottom: 0;
   width: 100%;
 
-  h3{
+  h3 {
     text-align: center;
     margin-bottom: 20px;
   }
 }
 
-.form-wrap{
+.form-wrap {
   padding: 20px;
   border: 1px #ddd solid;
   border-radius: 10px;
