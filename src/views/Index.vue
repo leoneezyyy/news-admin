@@ -19,8 +19,14 @@
             <i class="el-icon-location"></i>
             <span>文章管理</span>
           </template>
-          <el-menu-item index="1-1">文章列表</el-menu-item>
-          <el-menu-item index="1-2">发布文章</el-menu-item>
+          <el-menu-item index="1-1">
+            <!-- 文章列表 -->
+            <router-link to="/post_list">文章列表</router-link>
+          </el-menu-item>
+          <el-menu-item index="1-2">
+            <!-- 文章列表 -->
+            <router-link to="/post_add">文章列表</router-link>
+          </el-menu-item>
         </el-submenu>
       </el-menu>
     </el-aside>
@@ -34,7 +40,10 @@
         <span>退出</span>
       </el-header>
       <!-- 子页面显示的内容 -->
-      <el-main>Main</el-main>
+      <el-main>
+        <!-- 显示子路由匹配的页面 -->
+        <router-view></router-view>
+      </el-main>
     </el-container>
   </el-container>
 </template>

@@ -5,7 +5,8 @@
       <h3>登录</h3>
 
       <!-- model：表单的数据对象 -->
-      <el-form ref="f`orm" :rules="rules" :model="form" label-width="80px">
+      <!-- rules：表单的校验规则 -->
+      <el-form ref="form" :rules="rules" :model="form" label-width="80px">
         <el-form-item label="账号" prop="username">
           <el-input v-model="form.username"></el-input>
         </el-form-item>
@@ -23,7 +24,6 @@
 </template>
 
 <script>
-import { log } from "util";
 export default {
   data() {
     return {
@@ -33,7 +33,7 @@ export default {
         password: ""
       },
 
-      // rules是表单验证规则
+      // rules是表单校验规则
       rules: {
         username: [
           // required代表是否必填, message错误时候的提示,trigger什么时候触发
@@ -49,25 +49,28 @@ export default {
     submitForm() {
       // validate方法是element的表单才有的
       this.$refs.form.validate(valid => {
-        // valid为真的时候提交表单
+        // valid为真时候提交表单
         if (valid) {
           // 请求登录接口
-
           this.$axios({
             url: "/login",
             method: "POST",
             data: this.form
           }).then(res => {
             const { message, statusCode, data } = res.data;
+
             // 请求失败
             if (statusCode === 401) {
               this.$message.error(message);
               return;
             }
+
             // 请求成功
             this.$message.success(message);
+
             // 把用户信息保存到本地
             localStorage.setItem("user", JSON.stringify(data));
+
             // 跳转到后台管理首页
             setTimeout(() => {
               this.$router.push("/");
@@ -80,7 +83,7 @@ export default {
 };
 </script>
 
-<style scoped lang='less'>
+<style scoped lang="less">
 // 在定位时候同时设置top和bottom，该元素的高度取两者的距离
 .container {
   position: absolute;
