@@ -52,29 +52,26 @@ export default {
         // valid为真的时候提交表单
         if (valid) {
           // 请求登录接口
+
           this.$axios({
             url: "/login",
-            methods: "POST",
+            method: "POST",
             data: this.form
           }).then(res => {
             const { message, statusCode, data } = res.data;
-
             // 请求失败
             if (statusCode === 401) {
               this.$message.error(message);
               return;
             }
-
             // 请求成功
             this.$message.success(message);
-
             // 把用户信息保存到本地
             localStorage.setItem("user", JSON.stringify(data));
-
             // 跳转到后台管理首页
             setTimeout(() => {
               this.$router.push("/");
-            }, 2000);
+            }, 1500);
           });
         }
       });
