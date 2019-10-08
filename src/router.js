@@ -15,10 +15,16 @@ export default new Router({
     base: process.env.BASE_URL,
 
     // 路由的配置
-    routes: [
-        { path: '/login', component: Login },
-        { path: '/', component: Index ,children:[
-            
-        ]}
+    routes: [{
+            path: '/login',
+            component: Login
+        },
+        {
+            path: '/',
+            component: Index,
+            children: [
+
+            ]
+        }
     ]
 })
