@@ -17,6 +17,8 @@ export default new Router({
     // 路由的配置
     routes: [
         { path: '/login', component: Login },
-        { path: '/', component: Index }
+        { path: '/', component: Index ,children:[
+            
+        ]}
     ]
 })

@@ -5,7 +5,7 @@
       <h3>登录</h3>
 
       <!-- model：表单的数据对象 -->
-      <el-form ref="form" :rules="rules" :model="form" label-width="80px">
+      <el-form ref="f`orm" :rules="rules" :model="form" label-width="80px">
         <el-form-item label="账号" prop="username">
           <el-input v-model="form.username"></el-input>
         </el-form-item>

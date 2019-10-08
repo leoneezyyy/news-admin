@@ -13,7 +13,7 @@ Vue.config.productionTip = false
 // 把axios挂载到vue的原型
 Vue.prototype.$axios = axios;
 
-// 设置基准路径
+// 设置基准路径 
 axios.defaults.baseURL = 'http://localhost:3000'
 
 // 路由守卫
