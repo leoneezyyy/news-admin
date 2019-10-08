@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/views/Login'
 import Index from '@/views/Index'
+import PostAdd from '@/views/PostAdd'
+import PostList from '@/views/PostList'
 
 // 注册路由插件
 Vue.use(Router)
@@ -22,8 +24,17 @@ export default new Router({
         {
             path: '/',
             component: Index,
-            children: [
-
+            meta: '首页',
+            children: [{
+                    path: 'post_list',
+                    component: PostList,
+                    meta: '文章列表'
+                },
+                {
+                    path: 'post_add',
+                    component: PostAdd,
+                    meta: '发布文章'
+                }
             ]
         }
     ]

@@ -24,8 +24,8 @@
             <router-link to="/post_list">文章列表</router-link>
           </el-menu-item>
           <el-menu-item index="1-2">
-            <!-- 文章列表 -->
-            <router-link to="/post_add">文章列表</router-link>
+            <!-- 发布文章 -->
+            <router-link to="/post_add">发布文章</router-link>
           </el-menu-item>
         </el-submenu>
       </el-menu>
@@ -41,6 +41,7 @@
       </el-header>
       <!-- 子页面显示的内容 -->
       <el-main>
+        <div>{{ breaks }}</div>
         <!-- 显示子路由匹配的页面 -->
         <router-view></router-view>
       </el-main>
@@ -54,6 +55,24 @@ export default {
     return {
       user: JSON.parse(localStorage.getItem("user") || `{}`)
     };
+  },
+
+  // computed里面的函数监听到函数中引用的所有实例下的属性的变化
+  computed:{
+    breaks(){
+      const {matched} = this.$route;
+      const arr = [];
+
+      console.log(this.$route);
+      
+
+      matched.forEach(v => {
+        arr.push(v.meta)
+      })
+      
+
+      return arr.join(" / ")
+    }
   },
 
   mounted() {}
