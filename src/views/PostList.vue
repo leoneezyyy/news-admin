@@ -53,7 +53,7 @@
       :page-sizes="[5, 10, 15]"
       :page-size="pageSize"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="400"
+      :total="100"
     ></el-pagination>
   </div>
 </template>
@@ -88,19 +88,27 @@ export default {
 
     // 切换页数时候触发
     handleCurrentChange(val) {
-      console.log(`当前页：${val}`);
+      this.pageIndex = val;
+      // 请求文章列表的数据
+      this.getList();
+    },
+
+    // 请求文章列表的数据
+    getList(){
+      // 请求文章列表
+      this.$axios({
+        url:`/post?pageIndex=${this.pageIndex}&pageSize=${this.pageSize}`
+      }).then(res => {
+        const {data} = res.date;
+
+        this.tableData = data;
+      })
     }
   },
 
   mounted() {
     // 请求文章列表
-    this.$axios({
-      url: `/post?pageIndex=${this.pageIndex}&pageSize=${this.pageSize}`
-    }).then(res => {
-      const { data } = res.data;
-
-      this.tableData = data;
-    });
+    this.getList();
   }
 };
 </script>
