@@ -44,7 +44,7 @@
       page-sizes：页面条数的列表
       page-size: 当前页面的条数
       layout：布局列表，默认就行
-      total：全部的条数-->
+    total：全部的条数-->
 
     <el-pagination
       @size-change="handleSizeChange"
@@ -53,7 +53,7 @@
       :page-sizes="[5, 10, 15]"
       :page-size="pageSize"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="100"
+      :total="total"
     ></el-pagination>
   </div>
 </template>
@@ -66,7 +66,8 @@ export default {
         {
           tableData: [],
           pageIndex: 1,
-          pageSize: 5
+          pageSize: 5,
+          total: 0
         }
       ]
     };
@@ -83,7 +84,9 @@ export default {
 
     // 条数切换时候触发
     handleSizeChange(val) {
-      console.log(val);
+      this.pageSize = val;
+      // 请求文章列表的数据
+      this.getList();
     },
 
     // 切换页数时候触发
@@ -94,21 +97,31 @@ export default {
     },
 
     // 请求文章列表的数据
-    getList(){
+    getList() {
       // 请求文章列表
       this.$axios({
-        url:`/post?pageIndex=${this.pageIndex}&pageSize=${this.pageSize}`
+        url: `/post?pageIndex=${this.pageIndex}&pageSize=${this.pageSize}`
       }).then(res => {
-        const {data} = res.date;
+        const { data } = res.date;
 
         this.tableData = data;
-      })
+      });
     }
   },
 
   mounted() {
     // 请求文章列表
     this.getList();
+
+    // 获取数据的总条数，只针对当前这个项目
+    // 请求文章列表
+    this.$axios({
+      url: `/post?pageIndex=${this.pageIndex}&pageSize=9999`
+    }).then(res => {
+      const { data } = res.data;
+      // 设置条数
+      this.total = data.length;
+    });
   }
 };
 </script>
